@@ -1,3 +1,3 @@
-module.exports = function (bundler) {
-    bundler.addAssetType('md', require.resolve('./MarkdownAsset.js'));
-};
+module.exports = function(bundler) {
+	bundler.addAssetType("md", require.resolve("./ExplorableAsset.js"))
+}
