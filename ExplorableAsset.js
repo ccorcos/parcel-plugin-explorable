@@ -14,7 +14,17 @@ module.exports = class MarkdownAsset extends HTMLAsset {
 	}
 
 	parse(code) {
-		return super.parse(this.md.markdownToHtml(code))
+		// Patch HTML asset so we can use XMLMode.
+		// https://github.com/parcel-bundler/parcel/blob/master/src/assets/HTMLAsset.js
+		const html = this.md.markdownToHtml(code)
+		const res = parse({
+			lowerCaseTags: false,
+			lowerCaseAttributeNames: false,
+			xmlMode: true,
+		})(html)
+		res.walk = api.walk
+		res.match = api.match
+		return res
 	}
 
 	generate() {
