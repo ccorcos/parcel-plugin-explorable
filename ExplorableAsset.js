@@ -18,10 +18,34 @@ module.exports = class MarkdownAsset extends HTMLAsset {
 	}
 
 	generate() {
-		const html = this.isAstDirty ? render(this.ast) : this.contents
+		const html = this.isAstDirty ? render(fixAst(this.ast)) : this.contents
 		const ast = this.md.htmlToAst(html)
 		return {
 			js: `module.exports=${JSON.stringify(ast, undefined, 2)}`,
 		}
 	}
+}
+
+function fixAst(ast) {
+	if (ast && Array.isArray(ast)) {
+		for (const child of ast) {
+			fixAst(child)
+		}
+	} else if (ast) {
+		const item = ast
+		if (item && item.attrs) {
+			if (item.attrs["json-data"]) {
+				item.attrs["json-data"] = item.attrs["json-data"].replace(
+					/"/g,
+					"&quot;"
+				)
+			}
+		}
+		if (item && item.content && Array.isArray(item.content)) {
+			for (const child of item.content) {
+				fixAst(child)
+			}
+		}
+	}
+	return ast
 }
