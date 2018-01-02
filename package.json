@@ -1,6 +1,6 @@
 {
   "name": "parcel-plugin-explorable",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "index.js",
   "license": "MIT",
   "description": "Parcel plugin for explorable explanations.",
@@ -14,6 +14,6 @@
     "markdown-it-component": "^1.1.0",
     "markdown-it-renderer": "^2.4.0",
     "parcel-bundler": "^1.1.0",
-    "posthtml-parser": "^0.2.1"
+    "posthtml-parser": "0.2.1"
   }
 }
