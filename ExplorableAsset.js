@@ -10,19 +10,7 @@ module.exports = class MarkdownAsset extends HTMLAsset {
 	constructor(name, pkg, options) {
 		super(name, pkg, options)
 		this.type = "js"
-
-		this.md = new MarkdownParser(
-			{
-				html: false,
-				xhtmlOut: true,
-				breaks: false,
-				linkify: true,
-				typographer: true,
-				langPrefix: "language-",
-				highlight: (str, lang) => "",
-			},
-			[MarkdownItComponent({ jsonData: true })]
-		)
+		this.md = new MarkdownParser({}, [MarkdownItComponent({ jsonData: true })])
 	}
 
 	parse(code) {
