@@ -19,6 +19,7 @@ module.exports = class MarkdownAsset extends HTMLAsset {
 
 	generate() {
 		const html = this.isAstDirty ? render(this.ast) : this.contents
+		console.log(html)
 		const ast = this.md.htmlToAst(html)
 		return {
 			js: `module.exports=${JSON.stringify(ast, undefined, 2)}`,
